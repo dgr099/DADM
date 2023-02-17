@@ -3,7 +3,7 @@ import java.util.UUID
 import java.util.Date
 import kotlin.math.roundToLong
 import java.time.format.DateTimeFormatter;
-class Card(
+open class Card(
     var question: String,
     var answer: String,
     var date: String = LocalDateTime.now().toString(),
@@ -12,10 +12,11 @@ class Card(
     var repetitions: Int = 0,
     var interval: Long = 1L,
     var nextPracticeDate: LocalDateTime = LocalDateTime.now(),
-    var easiness: Double = 2.5
+    var easiness: Double = 2.5,
+    var id_deck: String? = null,
 ){
     
-    fun show(){
+    open fun show(){
         print("$question (INTRO para ver respuesta)")
         readln();
         print("$answer (Teclea 0 -> Difícil 3 -> Dudo 5 -> Fácil): ")
