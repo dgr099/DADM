@@ -15,6 +15,7 @@ open class Card(
     var easiness: Double = 2.5,
     var id_deck: String? = null,
 ){
+
     override fun toString() :String{
         var ret =  "card" //| $question | $answer | $date | $id | $quality | $re"
         for (property in Card::class.java.declaredFields) {
@@ -60,4 +61,12 @@ open class Card(
             now = now.plusDays(1)
         }
     }
+}
+
+fun Card.fromString(cad: String) : Card{
+    var atr: List<String>
+
+    atr = cad.split("|")
+    return Card(question = atr[0], answer=atr[1], date=atr[2], id=atr[3], quality=atr[4].toIntOrNull()?:0, repetitions=atr[5].toIntOrNull()?:0, interval=atr[6].toLongOrNull()?:0, nextPracticeDate=LocalDateTime.parse(atr[7]), easiness=atr[8].toDoubleOrNull()?:0.0, id_deck=atr[9])
+
 }

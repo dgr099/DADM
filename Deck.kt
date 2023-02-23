@@ -12,6 +12,14 @@ class Deck(
             File("Data/Cards.txt").appendText(it.toString() + "\n") //escribimos lo nuevo
         }
     }
+
+    fun readCards(){
+        val cardString: List<String> = File("data/Cards.txt").readLines()
+        for (linea in lineas) {
+            var cardsArt = linea.split(",")
+            
+        }
+    }
     fun addCard(){
         println("Añadiendo tarjeta al mazo $name")
         var tipo: Int?

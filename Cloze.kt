@@ -1,5 +1,15 @@
+import java.time.LocalDateTime
+import java.util.*
+
 class Cloze(question: String,
-            answer: String) : Card(question, answer){
+            answer: String, date: String = LocalDateTime.now().toString(),
+            id: String = UUID.randomUUID().toString(),
+            quality: Int = 0,
+            repetitions: Int = 0,
+            interval: Long = 1L,
+            nextPracticeDate: LocalDateTime = LocalDateTime.now(),
+            easiness: Double = 2.5,
+            id_deck: String? = null,) : Card(question, answer, date, id, quality, repetitions, interval, nextPracticeDate, easiness, id_deck){
                 val fPart = question.subSequence(0, question.indexOf("*"))
                 val sPart = question.subSequence(question.indexOf("*"), question.lastIndexOf("*"))
                 override fun show(){
@@ -11,5 +21,19 @@ class Cloze(question: String,
     override fun toString() :String{
         return "cloze" + super.toString().substring("card".length)
     }
+
+}
+
+fun Cloze.fromString(cad: String) : Cloze{
+    var atr: List<String>
+    //val cardString: List<String> = File("data/Cards.txt").readLines()
+    /*for (linea in lineas) {
+        trozos = linea.split(",")
+        nombre = trozos[0]
+        cerveza = trozos[1].toInt()
+        println("$nombre $cerveza")
+    }*/
+    atr = cad.split("|")
+    return Cloze(question = atr[0], answer=atr[1], date=atr[2], id=atr[3], quality=atr[4].toIntOrNull()?:0, repetitions=atr[5].toIntOrNull()?:0, interval=atr[6].toLongOrNull()?:0, nextPracticeDate= LocalDateTime.parse(atr[7]), easiness=atr[8].toDoubleOrNull()?:0.0, id_deck=atr[9])
 
 }
