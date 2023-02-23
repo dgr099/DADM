@@ -1,3 +1,4 @@
+import java.io.File
 import java.time.LocalDateTime
 import java.util.*
 
@@ -5,6 +6,12 @@ class Deck(
     var name: String,
     var id: String = UUID.randomUUID().toString()
 ){
+    fun writeCards(){
+        File("Data/Cards.txt").writeText("") //vaciamos lo anterior
+        Data.cards.filter {card ->  card.id_deck==this.id}.forEach {
+            File("Data/Cards.txt").appendText(it.toString() + "\n") //escribimos lo nuevo
+        }
+    }
     fun addCard(){
         println("Añadiendo tarjeta al mazo $name")
         var tipo: Int?
@@ -28,9 +35,13 @@ class Deck(
                     return
                 }
             }
-            else -> {
+            0 -> {
                 card = (Card(question=quest, answer=awns))
                 card.id_deck=this.id
+            }
+            else -> {
+                println("Error no type $tipo")
+                return
             }
         }
         //con la tarjeta añadida, la añadimos al colection
@@ -44,6 +55,8 @@ class Deck(
            println(it.question + " -> " + it.answer)
         }
     }
+
+
 
     fun simulate(period: Int) {
         /*println("Simulación del mazo $name:")

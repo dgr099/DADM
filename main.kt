@@ -83,14 +83,34 @@ fun main() {
     for (item in lista)
         item.dibujar()
 }*/
+import java.io.File
+import java.lang.Double.max
 
-fun main(){
-    var opt : Int?
-    do{
-        print("""1. Añadir tarjeta
-    2. Lista de tarjetas
-    3. Simulación
-    4. Salir
-    Elige una opción: """)
-    opt = readln().toIntOrNull() ?: 0}while(opt==null ||!(opt in 1..4))
+class Pais(var nombre: String, var cerveza: Int, var cerveza1: Int,var cerveza2: Int, var vino: Int)
+
+fun main() {
+    val lineas: List<String> = File("Data/Drinks.txt").readLines()
+    val paises: MutableList<Pais> = mutableListOf()
+    var trozos: List<String>
+    var nombre: String
+    var cerveza: Int
+    var cerveza1: Int
+    var cerveza2: Int
+    var vino: Int
+
+    for (linea in lineas) {
+        trozos = linea.split(",")
+        nombre = trozos[0]
+        cerveza = trozos[1].toInt()
+        cerveza1 = trozos[2].toInt()
+        cerveza2 = trozos[3].toInt()
+        vino = trozos[3].toInt()
+        paises += Pais(nombre, cerveza, cerveza1, cerveza2, vino)
+    }
+    fun selector(pais: Pais) : Int {
+        return maxOf(pais.cerveza, pais.cerveza1, pais.cerveza2)
+    }
+    paises.sortByDescending {selector((it))}
+    paises.forEach { println("${it.nombre} : ${it.vino}") }
 }
+

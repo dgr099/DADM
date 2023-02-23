@@ -8,5 +8,8 @@ class Cloze(question: String,
                     print("${this.fPart}${answer}${this.sPart} (Teclea 0 -> Difícil 3 -> Dudo 5 -> Fácil): ")
                     quality = readln().toIntOrNull() ?: 0
                 }
+    override fun toString() :String{
+        return "cloze" + super.toString().substring("card".length)
+    }
 
 }

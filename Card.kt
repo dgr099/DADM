@@ -15,7 +15,14 @@ open class Card(
     var easiness: Double = 2.5,
     var id_deck: String? = null,
 ){
-    
+    override fun toString() :String{
+        var ret =  "card" //| $question | $answer | $date | $id | $quality | $re"
+        for (property in Card::class.java.declaredFields) {
+            //println("${field.name} = ${field.get(this)}")
+            ret += " | ${property.get(this)}"
+        }
+        return ret;
+    }
     open fun show(){
         print("$question (INTRO para ver respuesta)")
         readln();
