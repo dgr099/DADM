@@ -1,7 +1,7 @@
 import java.time.LocalDateTime
 import java.util.*
 
-class Cloze(question: String,
+class TextCard(question: String,
             answer: String, date: String = LocalDateTime.now().toString(),
             id: String = UUID.randomUUID().toString(),
             quality: Int = 0,
@@ -13,35 +13,21 @@ class Cloze(question: String,
                 private val fPart = question.subSequence(0, question.indexOf("*"))
                 private val sPart = question.subSequence(question.indexOf("*"), question.lastIndexOf("*"))
                 override fun show(){
-                    print("$question (INTRO para ver respuesta)")
+                    print(question)
+                    println("Introduce respuesta: ")
                     readln()
+                    println("Respuesta Correcta: ")
                     print("${this.fPart}${answer}${this.sPart} (Teclea 0 -> Difícil 3 -> Dudo 5 -> Fácil): ")
                     quality = readln().toIntOrNull() ?: 0
                 }
     override fun toString() :String{
-        return "cloze" + super.toString().substring("card".length)
+        return "textCard" + super.toString().substring("card".length)
     }
 
     companion object{
         fun fromString(cad: String) : Card{
-
             val atr: List<String> = cad.split(" | ")
-            return Cloze(question = atr[0], answer=atr[1], date=atr[2], id=atr[3], quality=atr[4].toIntOrNull()?:0, repetitions=atr[5].toIntOrNull()?:0, interval=atr[6].toLongOrNull()?:0, nextPracticeDate= LocalDateTime.parse(atr[7]), easiness=atr[8].toDoubleOrNull()?:0.0, idDeck=atr[9])
+            return TextCard(question = atr[0], answer=atr[1], date=atr[2], id=atr[3], quality=atr[4].toIntOrNull()?:0, repetitions=atr[5].toIntOrNull()?:0, interval=atr[6].toLongOrNull()?:0, nextPracticeDate= LocalDateTime.parse(atr[7]), easiness=atr[8].toDoubleOrNull()?:0.0, idDeck=atr[9])
         }
     }
 }
-
-
-/*fun Cloze.fromString(cad: String) : Cloze{
-    var atr: List<String>
-    //val cardString: List<String> = File("data/Cards.txt").readLines()
-    /*for (linea in lineas) {
-        trozos = linea.split(",")
-        nombre = trozos[0]
-        cerveza = trozos[1].toInt()
-        println("$nombre $cerveza")
-    }*/
-    atr = cad.split(" | ")
-    return Cloze(question = atr[0], answer=atr[1], date=atr[2], id=atr[3], quality=atr[4].toIntOrNull()?:0, repetitions=atr[5].toIntOrNull()?:0, interval=atr[6].toLongOrNull()?:0, nextPracticeDate= LocalDateTime.parse(atr[7]), easiness=atr[8].toDoubleOrNull()?:0.0, id_deck=atr[9])
-
-}*/
